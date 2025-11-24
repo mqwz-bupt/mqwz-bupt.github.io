@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>我的个人主页 | Your Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Your Name 的个人网站主页" />
+  <style>
+    /* ====== 全局样式 ====== */
+    :root {
+      --bg: #050816;
+      --bg-soft: #0f172a;
+      --card: #020617;
+      --primary: #38bdf8;
+      --primary-soft: rgba(56, 189, 248, 0.1);
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius-xl: 1.25rem;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --transition-fast: 0.18s ease-out;
+      --transition-normal: 0.25s ease-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "PingFang SC", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 0 0, #1e293b 0, #020617 40%, #020617 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ====== 布局 ====== */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    main {
+      flex: 1;
+      padding-bottom: 4rem;
+    }
+
+    /* ====== 顶部导航 ====== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .nav {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 40%;
+      background: radial-gradient(circle at 0 0, #38bdf8, #0f172a);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.55);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .logo span {
+      background: linear-gradient(to bottom right, #e0f2fe, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .brand-name {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .brand-tagline {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #38bdf8, #22c55e);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: #e5e7eb;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.4rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.16), transparent);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      border-color: rgba(56, 189, 248, 0.75);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.85);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.22), transparent);
+    }
+
+    /* ====== Hero 区 ====== */
+    .hero {
+      padding: 4rem 0 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      width: max-content;
+    }
+
+    .hero-tag-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e);
+      box-shadow: 0 0 12px rgba(74, 222, 128, 0.9);
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 2.9rem);
+      line-height: 1.18;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.96rem;
+      color: var(--text-sub);
+      max-width: 34rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.55rem 1.4rem;
+      font-size: 0.86rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast), border-color var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 0 0, #38bdf8, #0ea5e9);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 14px 30px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(56, 189, 248, 0.55);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-icon {
+      font-size: 1rem;
+      transform: translateY(1px);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .hero-meta-label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      color: #6b7280;
+    }
+
+    .hero-meta-value {
+      color: #e5e7eb;
+    }
+
+    /* 右侧卡片（可放头像 + 简要信息） */
+    .hero-card {
+      border-radius: 1.4rem;
+      padding: 1.4rem;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.16), transparent),
+        linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .hero-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: linear-gradient(135deg, #0f172a, #020617);
+      display: grid;
+      place-items: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-avatar span {
+      background: linear-gradient(to bottom right, #e0f2fe, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .hero-card-desc {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+    }
+
+    .hero-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+
+    .tag {
+      padding: 0.16rem 0.65rem;
+      font-size: 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-sub);
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    .hero-card-links {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .hero-link-pill {
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: rgba(15, 23, 42, 0.85);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .hero-link-pill:hover {
+      border-color: rgba(56, 189, 248, 0.75);
+      background: rgba(15, 23, 42, 0.95);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-card-status {
+      font-size: 0.76rem;
+      color: #a5b4fc;
+    }
+
+    /* 背景装饰 */
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(32px);
+      opacity: 0.65;
+    }
+
+    .hero-card::before {
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 70%);
+      top: -40px;
+      right: -110px;
+    }
+
+    .hero-card::after {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
+      bottom: -60px;
+      left: -60px;
+    }
+
+    /* ====== 通用 section 样式 ====== */
+    section {
+      padding: 2.5rem 0 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section-title span {
+      width: 7px;
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(to bottom, #38bdf8, #22c55e);
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    /* ====== About 区 ====== */
+    .about-card {
+      border-radius: var(--radius-xl);
+      padding: 1.4rem 1.3rem;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.98),
+        rgba(15, 23, 42, 0.94)
+      );
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 1.8rem;
+    }
+
+    .about-text {
+      font-size: 0.87rem;
+      color: var(--text-sub);
+    }
+
+    .about-text p + p {
+      margin-top: 0.6rem;
+    }
+
+    .about-highlight {
+      color: #e5e7eb;
+    }
+
+    .about-meta-list {
+      list-style: none;
+      margin-top: 0.9rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.5rem 1.2rem;
+      font-size: 0.8rem;
+    }
+
+    .about-meta-list li span {
+      color: #9ca3af;
+    }
+
+    .about-side {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      font-size: 0.8rem;
+    }
+
+    .about-side-block {
+      padding: 0.7rem 0.9rem;
+      border-radius: 0.95rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.94);
+    }
+
+    .about-side-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .pill {
+      padding: 0.12rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+
+    /* ====== Skills & Projects ====== */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.8fr);
+      gap: 1.6rem;
+    }
+
+    .card {
+      border-radius: var(--radius-xl);
+      padding: 1.3rem 1.2rem;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      background: linear-gradient(135deg, #020617, #020617);
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.9);
+    }
+
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 0.7rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .skills-list span {
+      font-size: 0.74rem;
+      padding: 0.18rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 0.4rem;
+    }
+
+    .project-item {
+      padding: 0.7rem 0.8rem;
+      border-radius: 0.9rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      transition: border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), background var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .project-item:hover {
+      border-color: rgba(56, 189, 248, 0.75);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.95);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .project-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-title {
+      font-size: 0.84rem;
+      font-weight: 500;
+    }
+
+    .project-badge {
+      font-size: 0.7rem;
+      padding: 0.14rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #e0f2fe;
+      border: 1px solid rgba(56, 189, 248, 0.75);
+    }
+
+    .project-meta {
+      margin-top: 0.18rem;
+      font-size: 0.74rem;
+      color: #9ca3af;
+    }
+
+    .project-links {
+      margin-top: 0.25rem;
+      font-size: 0.74rem;
+      color: #a5b4fc;
+    }
+
+    /* ====== 联系区 ====== */
+    .contact-card {
+      border-radius: var(--radius-xl);
+      padding: 1.4rem 1.2rem;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.2), transparent),
+        linear-gradient(135deg, #020617, #020617);
+      margin-top: 0.8rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.75fr) minmax(0, 1.5fr);
+      gap: 1.6rem;
+    }
+
+    .contact-text {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+    }
+
+    .contact-info {
+      margin-top: 0.7rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.6rem 1.2rem;
+      font-size: 0.78rem;
+    }
+
+    .contact-info div span {
+      display: block;
+      font-size: 0.72rem;
+      color: #6b7280;
+      margin-bottom: 0.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-highlight {
+      color: #e5e7eb;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.7rem;
+      font-size: 0.8rem;
+    }
+
+    .social-pill {
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.95);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+    .social-pill:hover {
+      border-color: rgba(56, 189, 248, 0.75);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.95);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      font-size: 0.8rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+    }
+
+    .form-label {
+      font-size: 0.76rem;
+      color: #9ca3af;
+    }
+
+    .form-input,
+    .form-textarea {
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      outline: none;
+      font-size: 0.8rem;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+      transform: translateY(-1px);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-note {
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
+
+    .form-submit {
+      margin-top: 0.15rem;
+      align-self: flex-start;
+    }
+
+    /* ====== 底部 ====== */
+    footer {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 1rem 0 1.4rem;
+      font-size: 0.72rem;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    footer a {
+      color: #a5b4fc;
+    }
+
+    /* ====== 响应式 ====== */
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: minmax(0, 1.1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .about-card {
+        grid-template-columns: minmax(0, 1.1fr);
+      }
+
+      .contact-card {
+        grid-template-columns: minmax(0, 1.1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 2.6rem;
+      }
+
+      section {
+        padding-top: 2.1rem;
+      }
+
+      .card,
+      .about-card,
+      .contact-card {
+        padding: 1.1rem 1rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: minmax(0, 1.1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- 顶部导航 -->
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <div class="nav-left">
+            <div class="logo">
+              <!-- 这里可以改成你的姓名首字母 -->
+              <span>Y</span>
+            </div>
+            <div class="brand-text">
+              <div class="brand-name">Your Name</div>
+              <div class="brand-tagline">个人主页 / Portfolio</div>
+            </div>
+          </div>
+          <div class="nav-links">
+            <a href="#about">关于我</a>
+            <a href="#skills">技能</a>
+            <a href="#projects">项目</a>
+            <a href="#contact">联系</a>
+            <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              联系我
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <main>
+      <div class="container">
+        <!-- Hero 区 -->
+        <section class="hero" id="top">
+          <div class="hero-text">
+            <div class="hero-tag">
+              <div class="hero-tag-dot"></div>
+              <span>欢迎访问我的个人网站</span>
+            </div>
+            <h1 class="hero-title">
+              嗨，我是 <span>Your Name</span><br />
+              一名学生 / 开发者 / 创作者
+            </h1>
+            <p class="hero-subtitle">
+              这里是我的个人空间，用来记录学习、项目与一些有趣的想法。你可以在下方了解我的背景、技术栈，以及正在做的事情。
+            </p>
+            <div class="hero-actions">
+              <button
+                class="btn-primary"
+                onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})"
+              >
+                查看项目
+                <span class="btn-icon">↗</span>
+              </button>
+              <button
+                class="btn-ghost"
+                onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})"
+              >
+                了解更多关于我
+              </button>
+            </div>
+            <div class="hero-meta">
+              <div class="hero-meta-item">
+                <span class="hero-meta-label">LOCATION</span>
+                <span class="hero-meta-value">City · Country</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="hero-meta-label">FOCUS</span>
+                <span class="hero-meta-value">Web 开发 / AI / 数学建模</span>
+              </div>
+              <div class="hero-meta-item">
+                <span class="hero-meta-label">STATUS</span>
+                <span class="hero-meta-value">开放合作与交流</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧小卡片，可以放头像/简介 -->
+          <aside class="hero-card" aria-label="个人简介卡片">
+            <div class="hero-card-inner">
+              <div class="hero-avatar">
+                <!-- 这里可以放你的头像图片，替换内部 span 为 <img src="your-photo.jpg" alt="Your Name"> -->
+                <span>Y</span>
+              </div>
+              <div>
+                <div class="hero-card-title">Your Name</div>
+                <div class="hero-card-desc">
+                  目前就读于某某大学 · 某某专业。对
+                  <span class="about-highlight">计算机、互联网产品和数据分析</span>
+                  有浓厚兴趣，正在不断探索技术与现实问题结合的可能性。
+                </div>
+                <div class="hero-card-tags">
+                  <div class="tag">学生</div>
+                  <div class="tag">Developer</div>
+                  <div class="tag">Learner</div>
+                </div>
+              </div>
+              <div class="hero-card-footer">
+                <div class="hero-card-links">
+                  <!-- 这些链接改成你自己的 -->
+                  <a class="hero-link-pill" href="#" target="_blank" rel="noopener noreferrer"
+                    >GitHub</a
+                  >
+                  <a class="hero-link-pill" href="#" target="_blank" rel="noopener noreferrer"
+                    >博客</a
+                  >
+                </div>
+                <div class="hero-card-status">· 正在学习与折腾中</div>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <!-- About 区 -->
+        <section id="about">
+          <div class="section-header">
+            <div class="section-title">
+              <span></span>
+              关于我
+            </div>
+            <div class="section-subtitle">A little bit of who I am</div>
+          </div>
+
+          <div class="about-card">
+            <div>
+              <div class="about-text">
+                <p>
+                  我是 <span class="about-highlight">Your Name</span>，一名喜欢折腾各种技术的学生。平时主要关注
+                  <span class="about-highlight">Web 开发、算法竞赛、数学建模、AI 工具</span> 等方向，
+                  偶尔也会写点文字、拍点照片。
+                </p>
+                <p>
+                  我相信持续的学习和输出能够让人不断成长，所以我会把自己的
+                  <span class="about-highlight">项目、学习笔记和一些思考</span> 整理在这里，希望未来回头看的时候，
+                  能看到自己一点一滴的进步。
+                </p>
+              </div>
+              <ul class="about-meta-list">
+                <li><span>学校 / 专业：</span>某某大学 · 某某专业（可自行修改）</li>
+                <li><span>方向兴趣：</span>Web 开发 · AI · 数据分析 · 数学建模</li>
+                <li><span>常用语言：</span>HTML / CSS / JavaScript / Python / C++</li>
+                <li><span>当前目标：</span>打好基础，做一些真正“能用”的作品</li>
+              </ul>
+            </div>
+            <div class="about-side">
+              <div class="about-side-block">
+                <div class="about-side-title">近期在做的事</div>
+                <div class="pill-row">
+                  <span class="pill">完善个人网站</span>
+                  <span class="pill">阅读技术 / 论文</span>
+                  <span class="pill">项目 & 比赛</span>
+                  <span class="pill">英语学习</span>
+                </div>
+              </div>
+              <div class="about-side-block">
+                <div class="about-side-title">我希望这个网站可以：</div>
+                <ul style="padding-left: 1rem; list-style: disc; color: var(--text-sub);">
+                  <li>记录自己的成长与作品</li>
+                  <li>作为在线简历和项目展示</li>
+                  <li>结识有共同兴趣的朋友</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills & Projects -->
+        <section id="skills">
+          <div class="section-header">
+            <div class="section-title">
+              <span></span>
+              技能与项目
+            </div>
+            <div class="section-subtitle">What I use & what I build</div>
+          </div>
+
+          <div class="grid-2">
+            <!-- 技能卡片 -->
+            <article class="card">
+              <h3 class="card-title">技能 / 技术栈</h3>
+              <div class="skills-list">
+                <!-- 在这里添加或修改你的技能标签 -->
+                <span>HTML & CSS</span>
+                <span>JavaScript</span>
+                <span>React / Vue（如有）</span>
+                <span>Python</span>
+                <span>C / C++</span>
+                <span>Git & GitHub</span>
+              </div>
+              <p class="card-desc">
+                上面列的是我目前比较熟悉、或正在学习使用的技术栈。技术不等于能力，但掌握合适的工具，
+                可以让我更好地把想法变成现实。
+              </p>
+            </article>
+
+            <!-- 项目卡片 -->
+            <article class="card" id="projects">
+              <h3 class="card-title">最近的一些项目</h3>
+              <div class="projects-list">
+                <div class="project-item">
+                  <div class="project-title-row">
+                    <div class="project-title">个人网站 / Portfolio</div>
+                    <div class="project-badge">进行中</div>
+                  </div>
+                  <div class="project-meta">使用 HTML + CSS + JavaScript 搭建的个人主页。</div>
+                  <div class="project-links">代码链接：<span>（待补充）</span></div>
+                </div>
+
+                <div class="project-item">
+                  <div class="project-title-row">
+                    <div class="project-title">项目名称示例 A</div>
+                    <div class="project-badge">学习项目</div>
+                  </div>
+                  <div class="project-meta">
+                    简要描述你的项目，例如：一个用来练习前端布局 / API 调用的小应用。
+                  </div>
+                  <div class="project-links">Demo / GitHub：<span>（添加链接）</span></div>
+                </div>
+
+                <div class="project-item">
+                  <div class="project-title-row">
+                    <div class="project-title">项目名称示例 B</div>
+                    <div class="project-badge">比赛 / 课程</div>
+                  </div>
+                  <div class="project-meta">
+                    可以写你参加比赛、课程大作业或者科研中的一个小模块。
+                  </div>
+                  <div class="project-links">说明文档：<span>（如有）</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 联系方式 -->
+        <section id="contact">
+          <div class="section-header">
+            <div class="section-title">
+              <span></span>
+              联系我
+            </div>
+            <div class="section-subtitle">Feel free to reach out</div>
+          </div>
+
+          <div class="contact-card">
+            <div>
+              <div class="contact-text">
+                如果你有合作想法、学习交流、或者只是想简单聊聊，欢迎通过下面的方式联系我。
+                即使现在我还只是个学生，但也很期待能参与到更多有意思的事情中。
+              </div>
+              <div class="contact-info">
+                <div>
+                  <span>Email</span>
+                  <!-- 把下面的邮箱改成你自己的 -->
+                  <div class="contact-highlight">yourname@example.com</div>
+                </div>
+                <div>
+                  <span>GitHub</span>
+                  <div class="contact-highlight">github.com/yourname</div>
+                </div>
+                <div>
+                  <span>WeChat / 其他</span>
+                  <div class="contact-highlight">可以写微信号、QQ 或其他联系方式</div>
+                </div>
+              </div>
+              <div class="social-links">
+                <!-- 修改为你自己的社交账号链接 -->
+                <a class="social-pill" href="#" target="_blank" rel="noopener noreferrer"
+                  >GitHub</a
+                >
+                <a class="social-pill" href="#" target="_blank" rel="noopener noreferrer"
+                  >知乎</a
+                >
+                <a class="social-pill" href="#" target="_blank" rel="noopener noreferrer"
+                  >Blog / 个人博客</a
+                >
+              </div>
+            </div>
+
+            <!-- 简单留言表单（前端静态，无后端） -->
+            <form
+              class="contact-form"
+              onsubmit="alert('这是一个前端静态示例表单，你可以在有后端时接入真实提交逻辑。'); return false;"
+            >
+              <div class="form-field">
+                <label class="form-label" for="name">你的名字</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="如何称呼你？"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="email">邮箱</label>
+                <input
+                  class="form-input"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="message">留言内容</label>
+                <textarea
+                  class="form-textarea"
+                  id="message"
+                  name="message"
+                  placeholder="简单说说你想聊什么~"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-note">当前表单仅作展示，提交会弹出提示。</div>
+              <button type="submit" class="btn-primary form-submit">发送留言</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+      <div class="container">
+        <div>
+          © <span id="year"></span> Your Name. All rights reserved.
+          <br />
+          Built with ❤ and a lot of coffee. | <a href="#top">回到顶部 ↑</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 自动填充当前年份
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
